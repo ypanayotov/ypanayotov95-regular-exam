@@ -48,4 +48,12 @@ jobs:
     - name: Execute UI tests
       run: npm run test:ui
 
-  
+  deploy:
+    runs-on: ubuntu-latest
+    needs:  test-ui
+    steps:
+      - name: Deploy to prod
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_TOKEN }}
